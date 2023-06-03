@@ -4,4 +4,5 @@ import com.Learn.crudOps.Entity.Student;
 
 public interface IStudentDAO {
 	public void save(Student student);
+	public Student findById(int id);
 }

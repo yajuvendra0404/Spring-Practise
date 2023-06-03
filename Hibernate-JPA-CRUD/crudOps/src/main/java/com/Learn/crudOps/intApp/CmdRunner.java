@@ -19,8 +19,8 @@ public class CmdRunner implements CommandLineRunner{
 	
 	@Override
 	public void run (String ...args) throws Exception {
-		System.out.println("-------CMD Line Runner -----");
 		studentService.addStudent();
+		System.out.println(studentService.findStudent());
 	}
 	
 }

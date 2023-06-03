@@ -14,6 +14,7 @@ public class Student {
 	   *by creating a custom implementation of org.hibernate.id.IdentifierGenerator 
 	   *Interface. Override the method "public Serializable generate ()" 
 	   *provide your own logic */
+	/* If you have a @Id annotation you don't need to provide value for it. Hibernate will manage it itself. */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	@Column(name="id")
@@ -28,6 +29,7 @@ public class Student {
 	@Column(name="email")
 	private String email;
 	
+	public Student () {}
 	public Student(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;

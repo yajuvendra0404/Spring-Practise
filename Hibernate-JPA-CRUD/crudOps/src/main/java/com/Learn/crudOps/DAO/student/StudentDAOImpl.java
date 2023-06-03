@@ -12,7 +12,7 @@ import jakarta.transaction.Transactional;
 public class StudentDAOImpl implements IStudentDAO{
 	
 	private EntityManager entityManager;
-	
+
 	@Autowired				
 	public StudentDAOImpl (EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -21,10 +21,12 @@ public class StudentDAOImpl implements IStudentDAO{
 	@Override
 	@Transactional
 	public void save(Student student) {
-		System.out.println("-------Persisting Data -----");
-//		entityManager.getTransaction().begin();
-		entityManager.persist(student);
-//		entityManager.getTransaction().commit();
-		
+		entityManager.persist(student);	
 	}
+	
+	@Override
+	public Student findById(int id) {
+		return entityManager.find(Student.class, id);
+	}
+	
 }

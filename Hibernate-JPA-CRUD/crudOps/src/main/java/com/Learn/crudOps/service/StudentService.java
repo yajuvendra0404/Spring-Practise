@@ -17,10 +17,11 @@ public class StudentService  {
 	}
 
 	public void addStudent() {
-		Student thisStudent = new Student("jackson","huge","jacksonsa@gmail.com");
-		System.out.println("----- Data ----"+ thisStudent);
+		Student thisStudent = new Student("fred","huge","freda@gmail.com");
 		StudentDAO.save(thisStudent);
-
+	}
+	public Student findStudent() {
+		return StudentDAO.findById(1);
 	}
 
 }
