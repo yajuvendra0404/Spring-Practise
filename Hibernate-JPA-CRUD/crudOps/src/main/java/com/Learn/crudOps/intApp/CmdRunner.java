@@ -1,8 +1,13 @@
 package com.Learn.crudOps.intApp;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import com.Learn.crudOps.Entity.Student;
 
 
 import com.Learn.crudOps.service.StudentService;
@@ -19,8 +24,39 @@ public class CmdRunner implements CommandLineRunner{
 	
 	@Override
 	public void run (String ...args) throws Exception {
-		studentService.addStudent();
-		System.out.println(studentService.findStudent());
+		/* Adding new student. */
+		studentService.addStudent(); 
+		
+		/* Finding one student by its ID. */
+//		System.out.println(studentService.fetchStudent());
+		
+		/* Fetching all student at once and displaying there data on the 
+		 * console using Iterator Interface and Iterator() in ArrayList Class. */
+//		ArrayList<Student> arraydata = (ArrayList<Student>)studentService.fetchAllStudent(); 
+//		Iterator<Student> iterator = arraydata.iterator();
+//		while(iterator.hasNext()) {
+//			System.out.println(" - "+ iterator.next());
+//		}
+//		
+		/* Fetching all student at once and displaying there data on the 
+		 * console using for each loop. */
+		
+//		List<Student> listdata = studentService.fetchAllStudent();
+//		for (Student st: listdata) {
+//			System.out.println("-"+ st);
+//		}
+		
+//		List<Student> studentDataByLName =studentService.findByLastName();
+//		for (Student st: studentDataByLName) {
+//			System.out.println("-"+ st);
+//		}
+		
+		ArrayList<Student> studentDataByLName = (ArrayList<Student>)studentService.findByLastName(); 
+		Iterator<Student> iterator = studentDataByLName.iterator();
+		while(iterator.hasNext()) {
+			System.out.println(" - "+ iterator.next());
+		}
+		
 	}
 	
 }
