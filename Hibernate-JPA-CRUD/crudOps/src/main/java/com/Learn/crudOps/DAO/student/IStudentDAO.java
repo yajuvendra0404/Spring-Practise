@@ -10,4 +10,6 @@ public interface IStudentDAO {
 	public Student findById(int id);
 	public List<Student> findAll (SortBy sortBy);
 	public List<Student> findByLastName(String lastName); 
+	public boolean update(Student student);
+	public boolean delete(int id);
 }

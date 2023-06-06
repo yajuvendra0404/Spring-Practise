@@ -32,6 +32,7 @@ public class CmdRunner implements CommandLineRunner{
 		
 		/* Fetching all student at once and displaying there data on the 
 		 * console using Iterator Interface and Iterator() in ArrayList Class. */
+		
 //		ArrayList<Student> arraydata = (ArrayList<Student>)studentService.fetchAllStudent(); 
 //		Iterator<Student> iterator = arraydata.iterator();
 //		while(iterator.hasNext()) {
@@ -39,23 +40,43 @@ public class CmdRunner implements CommandLineRunner{
 //		}
 //		
 		/* Fetching all student at once and displaying there data on the 
-		 * console using for each loop. */
+		 * console using "forEach" loop. */
 		
 //		List<Student> listdata = studentService.fetchAllStudent();
 //		for (Student st: listdata) {
 //			System.out.println("-"+ st);
 //		}
 		
+		/* Fetching student by last name and displaying there data on the 
+		 * console using  "forEach"  loop. */
+		
 //		List<Student> studentDataByLName =studentService.findByLastName();
 //		for (Student st: studentDataByLName) {
 //			System.out.println("-"+ st);
 //		}
 		
-		ArrayList<Student> studentDataByLName = (ArrayList<Student>)studentService.findByLastName(); 
-		Iterator<Student> iterator = studentDataByLName.iterator();
-		while(iterator.hasNext()) {
-			System.out.println(" - "+ iterator.next());
-		}
+		
+		/* Fetching student by last name and displaying there data on the 
+		 * console using Iterator Interface and Iterator() in ArrayList Class. */
+		
+//		ArrayList<Student> studentDataByLName = (ArrayList<Student>)studentService.findByLastName(); 
+//		Iterator<Student> iterator = studentDataByLName.iterator();
+//		while(iterator.hasNext()) {
+//			System.out.println(" - "+ iterator.next());
+//		}
+		
+		/* update student. */
+		
+//		studentService.updateStudent(3);
+		
+		/* Delete student. */
+		
+		studentService.deleteStudent(5);
+		
+		
+		
+		
+		
 		
 	}
 	

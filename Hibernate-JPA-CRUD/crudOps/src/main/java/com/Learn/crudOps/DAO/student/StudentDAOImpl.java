@@ -9,11 +9,13 @@ import com.Learn.crudOps.Entity.Student;
 import com.Learn.crudOps.enums.SortBy;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
 public class StudentDAOImpl implements IStudentDAO{
+	
 	private EntityManager entityManager;
 
 	@Autowired				
@@ -33,7 +35,7 @@ public class StudentDAOImpl implements IStudentDAO{
 	}
 	
 	@Override
-	public List<Student> findAll(SortBy sortBy) {// String sortBy
+	public List<Student> findAll(SortBy sortBy) {
 		TypedQuery<Student> query; 
 		switch (sortBy) {
 			case FIRSTNAME:
@@ -53,11 +55,40 @@ public class StudentDAOImpl implements IStudentDAO{
 
 	}
 	
+	@Override
 	public List<Student> findByLastName (String lastName) {
 //		String queryString = "FROM Student Where lastName=:param";
 		String queryString = "FROM Student s Where s.lastName LIKE:param";
 		TypedQuery<Student> query = entityManager.createQuery(queryString,Student.class);
 		query.setParameter("param", "%"+lastName+"%");
 		return query.getResultList();
+	}
+	
+	@Override
+	@Transactional
+	public boolean update(Student student) {
+		entityManager.merge(student);
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public boolean delete(int id) {
+		/* Delete student using "entityManager.remove(Object o)." */
+		
+//		Student student = entityManager.find(Student.class, id);
+//		entityManager.remove(student);	
+//		return false;
+		
+		/* Delete student using "TypedQuery." 
+		 * You cannot use "TypedQuery" interface for non-select query like "UPDATE and DELETE",
+		 * for that you have to use Query interface of JPA  */
+		
+		Query query = entityManager.createQuery("DELETE FROM Student where id=:param");
+		query.setParameter("param",id);
+		int numRowAffected = query.executeUpdate();
+		System.out.println("---updated row number---"+ numRowAffected);
+		
+		return false;
 	}
 }
