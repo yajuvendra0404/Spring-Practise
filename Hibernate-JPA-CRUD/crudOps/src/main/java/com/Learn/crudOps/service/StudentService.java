@@ -20,16 +20,17 @@ public class StudentService  {
 	}
 
 	public void addStudent() {
-//		Student thisStudent = new Student("Duke","leach","dleacha@gmail.com");
-//		StudentDAO.save(thisStudent);
-//		Student thisStudent1 = new Student("Rashid","Ali","Alia@gmail.com");
-//		StudentDAO.save(thisStudent1);
-//		Student thisStudent2 = new Student("Kim","Doris","kDoris@gmail.com");
-//		StudentDAO.save(thisStudent2);
-//		Student thisStudent3 = new Student("Pamela","Anderson","pAnderson@gmail.com");
-//		StudentDAO.save(thisStudent3);
-//		Student thisStudent4 = new Student("Rust","Anderson","Rson@gmail.com");
-//		StudentDAO.save(thisStudent4);
+		
+		Student thisStudent = new Student("Duke","leach","dleacha@gmail.com");
+		StudentDAO.save(thisStudent);
+		Student thisStudent1 = new Student("Rashid","Ali","Alia@gmail.com");
+		StudentDAO.save(thisStudent1);
+		Student thisStudent2 = new Student("Kim","Doris","kDoris@gmail.com");
+		StudentDAO.save(thisStudent2);
+		Student thisStudent3 = new Student("Pamela","Anderson","pAnderson@gmail.com");
+		StudentDAO.save(thisStudent3);
+		Student thisStudent4 = new Student("Rust","Anderson","Rson@gmail.com");
+		StudentDAO.save(thisStudent4);
 		
 	}
 	
@@ -56,5 +57,10 @@ public class StudentService  {
 	public boolean deleteStudent(int studentId) {
 		StudentDAO.delete(studentId);
 		return  false;
+	}
+	
+	public boolean deleteAll() {
+		StudentDAO.deleteAll();
+		return false;
 	}
 }

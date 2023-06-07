@@ -72,7 +72,7 @@ public class StudentDAOImpl implements IStudentDAO{
 	}
 
 	@Override
-	@Transactional
+	@Transactional	
 	public boolean delete(int id) {
 		/* Delete student using "entityManager.remove(Object o)." */
 		
@@ -89,6 +89,15 @@ public class StudentDAOImpl implements IStudentDAO{
 		int numRowAffected = query.executeUpdate();
 		System.out.println("---updated row number---"+ numRowAffected);
 		
+		return false;
+	}
+	
+	@Override 
+	@Transactional
+	public boolean deleteAll() {
+		String querySring = "DELETE FROM Student";
+		Query query = entityManager.createQuery(querySring);
+		query.executeUpdate();
 		return false;
 	}
 }

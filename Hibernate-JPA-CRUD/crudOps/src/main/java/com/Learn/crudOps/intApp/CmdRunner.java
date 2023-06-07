@@ -25,7 +25,7 @@ public class CmdRunner implements CommandLineRunner{
 	@Override
 	public void run (String ...args) throws Exception {
 		/* Adding new student. */
-		studentService.addStudent(); 
+//		studentService.addStudent(); 
 		
 		/* Finding one student by its ID. */
 //		System.out.println(studentService.fetchStudent());
@@ -71,8 +71,8 @@ public class CmdRunner implements CommandLineRunner{
 		
 		/* Delete student. */
 		
-		studentService.deleteStudent(5);
-		
+//		studentService.deleteStudent(5);
+//		studentService.deleteAll();
 		
 		
 		
