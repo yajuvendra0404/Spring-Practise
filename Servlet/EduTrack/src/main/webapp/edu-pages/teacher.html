@@ -13,31 +13,69 @@
 		<div class="col-md-10 d-flex justify-content-center">
 			<h1>Teacher</h1>
 		</div>
-
 		<div class="col-10">
-			<form class="row g-3" action="../teacher">
-			  <div class="col-md-6">
-			    <label for="inputEmail4" class="form-label">Email</label>
-			    <input type="email" name="email" class="form-control" id="inputEmail4">
+
+		
+			<form class="row g-3" action="../teacher" method="post" >
+			  <div class="col-md-4">
+			    <label for="inputEmail" class="form-label">Email</label>
+			    <input type="email" name="email" class="form-control" id="inputEmail">
 			  </div>
-			  <div class="col-md-6">
-			    <label for="inputAddress" class="form-label">Address</label>
-			    <input type="text" name="address" class="form-control" id="inputAddress" placeholder="1234 Main St">
+			  <div class="col-md-4">
+			    <label for="inputName" class="form-label">Name</label>
+			    <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter Name">
 			  </div>
-			  <div class="col-md-6">
-			    <label for="inputCity" class="form-label">City</label>
-			    <input type="text" name="city" class="form-control" id="inputCity">
+			  <div class="col-md-4">
+			    <label for="inputModule" class="form-label">Module</label>
+			    <input type="text" name="module" class="form-control" id="inputModule" placeholder="Enter Module">
 			  </div>
-			  <div class="col-12">
-			    <button type="submit" class="btn btn-primary">Submit</button>
+			  
+			  <div class="col-12  mt-1">
+			    <button type="submit"   class="btn btn-primary">Submit</button>
 			  </div>
 			</form>
+			
+			
+		</div>
+	</div>
+ 	<div class="row p-5 d-flex justify-content-center">
+ 		<div class="col-10">
+ 		<button type="button" class="btn btn-primary btn-lg m-4" onclick ="getTeachersList()">Teachers List</button>
+	 	<table class="table table-dark table-striped-columns">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">First</th>
+		      <th scope="col">Last</th>
+		      <th scope="col">Handle</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">1</th>
+		      <td>Mark</td>
+		      <td>Otto</td>
+		      <td>@mdo</td>
+		    </tr>
+		    <tr>
+		      <th scope="row">2</th>
+		      <td>Jacob</td>
+		      <td>Thornton</td>
+		      <td>@fat</td>
+		    </tr>
+		    <tr>
+		      <th scope="row">3</th>
+		      <td colspan="2">Larry the Bird</td>
+		      <td>@twitter</td>
+		    </tr>
+		  </tbody>
+		</table>
 		</div>
 	</div>
 	
-	
 		<script src="https://kendo.cdn.telerik.com/2023.2.606/js/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"></script>
-        <script src="./edu-js/index.js"></script>
+        <script src="../edu-js/teacher.js"></script>
+        
 </body>
 </html>

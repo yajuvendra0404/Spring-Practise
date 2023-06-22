@@ -11,13 +11,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import com.eduTrack.connection.DBConnection;
+import com.google.gson.Gson;
 public class StudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Connection con; 
+    
     public StudentServlet() {
         super();
         // TODO Auto-generated constructor stub
@@ -25,9 +29,30 @@ public class StudentServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			con = DBConnection.getDBConnection(getServletContext());
+			String queryString = "select * from student";
+			PreparedStatement ps =con.prepareStatement(queryString);
+			ResultSet resultObject = ps.executeQuery();
+			
+		    String json = new Gson().toJson(resultObject);
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(json);
+		    
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+
+		
+		
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String city = request.getParameter("city");
@@ -38,17 +63,17 @@ public class StudentServlet extends HttpServlet {
 		} 
 		if (con != null) {
 			
-	        String queryString = "insert into student values(?,?,?,?)";
+	        String queryString = "insert into student (name, email, city) values (?,?,?)";
 			try {
 				
-				PreparedStatement ps = con.prepareStatement(queryString);
-				
-				ps.setInt(1, 1);
-				ps.setString(2, name);
-				ps.setString(3, email);
-				ps.setString(4, city);
-				
-				int result = ps.executeUpdate();
+			    PreparedStatement ps = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+			    
+			    ps.setString(1, name);
+			    ps.setString(2, email);
+			    ps.setString(3, city);
+
+			    int result = ps.executeUpdate();
+
 				System.out.println("----- number of rows updated ----"+ result);
 				
 			} catch (SQLException e) {
@@ -57,15 +82,7 @@ public class StudentServlet extends HttpServlet {
 		}  else {
 			System.out.println("-- connnection issue -- ");
 		}
-		
-		
-	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		doGet(request, response);
-		System.out.println("----go doPost method works -----"+ request);
 	}
 
 }

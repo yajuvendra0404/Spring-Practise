@@ -10,32 +10,70 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.eduTrack.connection.DBConnection;
+import com.google.gson.Gson;
 
 public class TeacherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private Connection con;
+    
     public TeacherServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append(" Form Submited ").append(request.getContextPath());
+		try {
+			con = DBConnection.getDBConnection(getServletContext());
+			String queryString = "select * from teacher";
+			PreparedStatement ps =con.prepareStatement(queryString);
+			ResultSet resultObject = ps.executeQuery();
+			
+		    String json = new Gson().toJson(resultObject);
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(json);
+		    
 
-		System.out.println("----go doGet method works -----");
-		
-		String email = request.getParameter("email");
-		String address = request.getParameter("address");
-		String city = request.getParameter("city");
-		
-		System.out.println("\n email = "+ email);
-		System.out.println("\n address = "+ address);
-		System.out.println("\n city = "+ city);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-		System.out.println("----go doPost method works -----");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String module = request.getParameter("module");
+		try {
+			con = DBConnection.getDBConnection(getServletContext());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		if (con != null) {
+			
+	        String queryString = "insert into teacher (name, email, module) values (?,?,?)";
+			try {
+				
+			    PreparedStatement ps = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+
+			    ps.setString(1, name);
+			    ps.setString(2, email);
+			    ps.setString(3, module);
+
+			    int result = ps.executeUpdate();
+
+				System.out.println("----- number of rows updated ----"+ result);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}  else {
+			System.out.println("-- connnection issue -- ");
+		}
+
 	}
 
 }

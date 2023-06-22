@@ -14,11 +14,30 @@ public final class DBConnection {
 	private String schema;
 	private String username;
 	private String password;
-	
+	private static Connection con = null;
 	@Override
 	public String toString() {
 		return "DBConnection [dbURL=" + dbURL + ", \n driver=" + driver + ", \n  schema=" + schema + ", \n  username=" + username
 				+ ", \n password=" + password + "]";
+	}
+	private DBConnection (ServletContext context) throws Exception {
+			this.setDBCredentials(context);
+			Class.forName(this.driver);	
+			DBConnection.con = DriverManager.getConnection(this.dbURL+this.schema,this.username,this.password);
+
+			if(DBConnection.con != null ) {
+				System.out.println(
+						
+						  "\n ----------------------------------"
+						+ "\n ----------------------------------"
+						+ "\n ---- DB Connction Established ----"		  
+						+ "\n ----------------------------------"
+						+ "\n ----------------------------------"
+						
+				);
+			}
+		
+
 	}
 	private void setDBCredentials (ServletContext context) {
 
@@ -40,29 +59,13 @@ public final class DBConnection {
         }
 
 	}
-	public static Connection getDBConnection(ServletContext context) throws Exception {
-
-		DBConnection db = new DBConnection();
-		db.setDBCredentials(context);
-		Connection con = null;
-
-			Class.forName(db.driver);	
-			con = DriverManager.getConnection(db.dbURL+db.schema,db.username,db.password);
-
-			if(con != null ) {
-				System.out.println(
-						
-						  "\n ----------------------------------"
-						+ "\n ----------------------------------"
-						+ "\n ---- DB Connction Established ----"		  
-						+ "\n ----------------------------------"
-						+ "\n ----------------------------------"
-				);
-			}
+	public static Connection getDBConnection(ServletContext context) throws Exception  {
 		
-
+		if(DBConnection.con == null) {
+			DBConnection db = new DBConnection(context);
+		}
 		
-		return con;
+		return DBConnection.con;
 	}
 
 }
