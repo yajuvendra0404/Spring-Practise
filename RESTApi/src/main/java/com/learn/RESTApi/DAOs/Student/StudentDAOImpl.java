@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
-
 import com.learn.RESTApi.Entities.StudentEntity;
+import com.learn.RESTApi.Models.Student;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -24,20 +24,21 @@ public class StudentDAOImpl implements IStudentDAO {
 	
 	@Override
 	@Transactional
-	public void save(StudentEntity student) {
-		entityManager.persist(student);
+	public void save(Student student) {
+		StudentEntity studentEntity = new StudentEntity(student.getFirstName(),student.getLastName(), student.getEmail(), student.getMarks());
+		entityManager.persist(studentEntity);
 	}
 	
 	@Override
 	public List<StudentEntity> getAllStudent() {
-		String queryString = "FROM Student";
+		String queryString = "FROM StudentEntity";
 		TypedQuery<StudentEntity> query = entityManager.createQuery(queryString,StudentEntity.class);
 		return query.getResultList();
 	}
 	
 	@Override
 	public List<StudentEntity> getStudentById(int id) {
-		String queryString= "FROM Student where id=:param";
+		String queryString= "FROM StudentEntity where id=:param";
 		TypedQuery<StudentEntity> query = entityManager.createQuery(queryString, StudentEntity.class);
 		query.setParameter("param", id);
 		return query.getResultList();	

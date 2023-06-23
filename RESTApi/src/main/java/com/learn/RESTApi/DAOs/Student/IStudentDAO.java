@@ -7,10 +7,11 @@ import com.learn.RESTApi.Models.Student;
 
 public interface IStudentDAO {
 
-	List<StudentEntity> getStudentById(int id);
+	public List<StudentEntity> getStudentById(int id);
 
-	List<StudentEntity> getAllStudent();
+	public List<StudentEntity> getAllStudent();
 
-	void save(StudentEntity student);
+	public void save(Student student);
 
 }
+

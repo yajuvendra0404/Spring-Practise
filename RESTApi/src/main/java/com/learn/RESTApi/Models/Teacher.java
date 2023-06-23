@@ -3,8 +3,6 @@ package com.learn.RESTApi.Models;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
-@Qualifier("TeacherModel")
 public class Teacher {
 
 	private String module;
@@ -14,11 +12,9 @@ public class Teacher {
 	private String lastName;
 
 	private String email;
-
-	
-	
-	
-	
+	public Teacher() {
+		super();
+	}
 	public Teacher(String module, String firstName, String lastName, String email) {
 		super();
 		this.module = module;

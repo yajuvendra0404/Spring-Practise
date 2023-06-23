@@ -9,8 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Qualifier("TeacherEntity")
+@Entity /* @Entites cannot be used as bean, they cannot be @Autowired. 
+		   they are not managed by IOC container. 
+		   they are to be managed by DAO and then DAO can be @Autowired */
 @Table(name="teacher")
 public class TeacherEntity {
 	@Id
@@ -29,7 +30,18 @@ public class TeacherEntity {
 	
 	@Column(name="module")
 	private String module;
+	
+	
+	
+	@Override
+	public String toString() {
+		return "TeacherEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", module=" + module + "]";
+	}
 
+	public TeacherEntity() {
+		super();
+	}
 	
 	public TeacherEntity(String firstName, String lastName, String email, String module) {
 		super();

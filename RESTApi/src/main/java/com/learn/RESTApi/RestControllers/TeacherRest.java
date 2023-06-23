@@ -26,7 +26,7 @@ public class TeacherRest {
 	}
 	
 	/* Rest API to fetch all Teacher */
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Teacher> getAllStudent() {
 		return this.teacherService.getAllTeacher();
 	}

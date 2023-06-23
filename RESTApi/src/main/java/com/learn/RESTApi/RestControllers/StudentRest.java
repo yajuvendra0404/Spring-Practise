@@ -28,7 +28,7 @@ public class StudentRest {
 	}
 	
 	/* Rest API to fetch all students */
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Student> getAllStudent() {
 		return this.studentService.getAllStudent();
 	}

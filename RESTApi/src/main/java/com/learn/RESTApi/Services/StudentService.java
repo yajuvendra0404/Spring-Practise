@@ -15,41 +15,37 @@ import com.learn.RESTApi.Models.Student;
 @Qualifier("StudentService")
 public class StudentService {
 	private IStudentDAO studentDAO;
-	private StudentEntity studentEntity;
-	private Student studentModel;
+	private Student studentModel = new Student();
 	@Autowired
 	public StudentService (
-			@Qualifier("StudentDAO") IStudentDAO studentDAOImpl,
-			@Qualifier("StudentEntity") StudentEntity studentEntity,
-			@Qualifier("StudentModel") Student studentModel
+			@Qualifier("StudentDAO") IStudentDAO studentDAOImpl
 	) {
 		this.studentDAO = studentDAOImpl;
-		this.studentEntity = studentEntity;
-		this.studentModel = studentModel;
 	}
 	
 	public void addStudent(String firstName, String lastName, String email, int marks ) {
 		
-		studentEntity.setEmail(email);
-		studentEntity.setFirstName(firstName);
-		studentEntity.setLastName(lastName);
-		studentEntity.setMarks(marks);
+		studentModel.setEmail(email);
+		studentModel.setFirstName(firstName);
+		studentModel.setLastName(lastName);
+		studentModel.setMarks(marks);
 		
-		studentDAO.save(studentEntity);
+		studentDAO.save(studentModel);
 	}
 	
 	public List<Student> getAllStudent() {
-		List<StudentEntity> studentEntityData = studentDAO.getAllStudent();
+
 		List<Student> studentModelData = new ArrayList<Student>();
 
-		Iterator<StudentEntity> itr = studentEntityData.iterator();
+		Iterator<StudentEntity> itr = studentDAO.getAllStudent().iterator();
 		
 		while(itr.hasNext()) {	
+			StudentEntity dataRow = itr.next();
 			
-			this.studentModel.setMarks(itr.next().getMarks());
-			this.studentModel.setFirstName(itr.next().getFirstName());
-			this.studentModel.setLastName(itr.next().getLastName());
-			this.studentModel.setEmail(itr.next().getEmail());
+			this.studentModel.setMarks(dataRow.getMarks());
+			this.studentModel.setFirstName(dataRow.getFirstName());
+			this.studentModel.setLastName(dataRow.getLastName());
+			this.studentModel.setEmail(dataRow.getEmail());
 			
 			studentModelData.add(this.studentModel);
 		} 

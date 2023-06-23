@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.learn.RESTApi.Entities.TeacherEntity;
+import com.learn.RESTApi.Models.Teacher;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -23,20 +24,23 @@ public class TeacherDAOImpl implements ITeacherDAO {
 	
 	@Override
 	@Transactional
-	public void save(TeacherEntity teacher) {
-		entityManager.persist(teacher);
+	public void save(Teacher teacher) {
+		TeacherEntity teacherEntity = new TeacherEntity(teacher.getFirstName(), teacher.getLastName(), teacher.getEmail(), teacher.getModule());
+		entityManager.persist(teacherEntity);
 	}
+	
+//	String firstName, String lastName, String email, String module
 	
 	@Override
 	public List<TeacherEntity> getAllTeacher() {
-		String queryString = "FROM Teacher";
+		String queryString = "FROM TeacherEntity";
 		TypedQuery<TeacherEntity> query = entityManager.createQuery(queryString, TeacherEntity.class);
 		return query.getResultList();
 	}
 	
 	@Override
 	public List<TeacherEntity> getTeacherById (int id) {
-		String queryString = "FROM Teacher where id=:param";
+		String queryString = "FROM TeacherEntity where id=:param";
 		TypedQuery<TeacherEntity> query= entityManager.createQuery(queryString,TeacherEntity.class);
 		query.setParameter("param", id);
 		return query.getResultList();

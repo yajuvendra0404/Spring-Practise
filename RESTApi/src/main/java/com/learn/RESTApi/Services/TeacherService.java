@@ -17,42 +17,36 @@ import com.learn.RESTApi.Models.Teacher;
 public class TeacherService {
 	
 	private ITeacherDAO  teacherDAO;
-	private TeacherEntity teacherEntity;
-	private Teacher teacherModel;
+	private Teacher teacherModel = new Teacher();
 	@Autowired
 	public TeacherService(
-			@Qualifier("TeacherDAO") ITeacherDAO teacherDAOImpl,
-			@Qualifier("TeacherEntity") TeacherEntity teacherEntity, /* you should have create interface for this */
-			@Qualifier("TeacherModel") Teacher teacherModel 		 /* TeacherEntity & TeacherModel for de-coupling. */
+			@Qualifier("TeacherDAO") ITeacherDAO teacherDAOImpl
 	) {
 		this.teacherDAO = teacherDAOImpl;
-		this.teacherEntity = teacherEntity; 
-		this.teacherModel = teacherModel;
 	}
 
 	public void addTeacher(String module, String firstName, String lastName, String email) {
 
-		this.teacherEntity.setFirstName(firstName);
-		this.teacherEntity.setLastName(lastName);
-		this.teacherEntity.setEmail(email);
-		this.teacherEntity.setModule(module);
+		this.teacherModel.setFirstName(firstName);
+		this.teacherModel.setLastName(lastName);
+		this.teacherModel.setEmail(email);
+		this.teacherModel.setModule(module);
 		
-		teacherDAO.save(this.teacherEntity);
+		teacherDAO.save(this.teacherModel);
 	}
 	
 	public List<Teacher> getAllTeacher() {
-		
-		List <TeacherEntity> teacherEntityData = this.teacherDAO.getAllTeacher();
+
 		List <Teacher> teacherData = new ArrayList<>();
 		
-		Iterator<TeacherEntity> itr = teacherEntityData.iterator();
+		Iterator<TeacherEntity> itr = this.teacherDAO.getAllTeacher().iterator();
 		
 		while( itr.hasNext() ) {
-			
-			this.teacherModel.setEmail(itr.next().getEmail());
-			this.teacherModel.setFirstName(itr.next().getFirstName());
-			this.teacherModel.setLastName(itr.next().getLastName());
-			this.teacherModel.setModule(itr.next().getModule());
+			TeacherEntity rowData = itr.next();
+			this.teacherModel.setEmail(rowData.getEmail());
+			this.teacherModel.setFirstName(rowData.getFirstName());
+			this.teacherModel.setLastName(rowData.getLastName());
+			this.teacherModel.setModule(rowData.getModule());
 			
 			teacherData.add(this.teacherModel);
 		}

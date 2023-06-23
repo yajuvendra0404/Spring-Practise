@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Qualifier("StudentEntity")
 @Table(name="student")
 public class StudentEntity {
 	
@@ -31,7 +30,9 @@ public class StudentEntity {
 	@Column(name="marks")
 	private int marks;
 	
-	
+	public StudentEntity() {
+		super();
+	}
 	
 	public StudentEntity(String firstName, String lastName, String email, int marks) {
 		super();
@@ -42,6 +43,12 @@ public class StudentEntity {
 	}
 
 	
+	@Override
+	public String toString() {
+		return "StudentEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", marks=" + marks + "]";
+	}
+
 	public int getMarks() {
 		return marks;
 	}

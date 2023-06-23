@@ -1,7 +1,7 @@
 package com.learn.RESTApi.CustomExceptions;
 
 public class StudentNotFoundException extends RuntimeException{
-
+	
 	public StudentNotFoundException() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -27,5 +27,5 @@ public class StudentNotFoundException extends RuntimeException{
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 }
