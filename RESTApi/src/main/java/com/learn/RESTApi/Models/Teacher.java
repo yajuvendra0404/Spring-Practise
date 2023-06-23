@@ -12,6 +12,7 @@ public class Teacher {
 	private String lastName;
 
 	private String email;
+	
 	public Teacher() {
 		super();
 	}

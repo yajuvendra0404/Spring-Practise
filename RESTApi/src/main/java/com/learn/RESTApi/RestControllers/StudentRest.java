@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.RESTApi.Models.Student;
+import com.learn.RESTApi.Models.Teacher;
 import com.learn.RESTApi.Services.StudentService;
 
 @RestController
@@ -40,9 +42,15 @@ public class StudentRest {
 	}
 	
 	/*RESt API for adding new Student to the database*/
-	@PostMapping("/{email}/{firstName}/{lastName}/{marks}")
+	@GetMapping("/{email}/{firstName}/{lastName}/{marks}")
 	public void addStudent(@PathVariable String email , @PathVariable String firstName , @PathVariable String lastName, @PathVariable int marks ) {
 		this.studentService.addStudent(email, firstName, lastName, marks);
 	}	
+	
+	/*this method use JSON received from the client to insert the data into Teacher Table*/
+	@PostMapping("/insert") 
+	public void addTeacher(@RequestBody Student student) {
+		this.studentService.addStudent(student.getEmail(), student.getFirstName(), student.getLastName(), student.getMarks());
+	}
 	
 }
