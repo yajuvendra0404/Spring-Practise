@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+
+import com.learn.RESTApi.CustomExceptions.StudentNotFoundException;
 import com.learn.RESTApi.Entities.StudentEntity;
 import com.learn.RESTApi.Models.Student;
 
@@ -25,7 +27,7 @@ public class StudentDAOImpl implements IStudentDAO {
 	@Override
 	@Transactional
 	public void save(Student student) {
-		StudentEntity studentEntity = new StudentEntity(student.getFirstName(),student.getLastName(), student.getEmail(), student.getMarks());
+		StudentEntity studentEntity = new  StudentEntity(student.getFirstName(),student.getLastName(), student.getEmail(), student.getMarks());
 		entityManager.persist(studentEntity);
 	}
 	
@@ -41,7 +43,11 @@ public class StudentDAOImpl implements IStudentDAO {
 		String queryString= "FROM StudentEntity where id=:param";
 		TypedQuery<StudentEntity> query = entityManager.createQuery(queryString, StudentEntity.class);
 		query.setParameter("param", id);
-		return query.getResultList();	
+		List<StudentEntity> resultset = query.getResultList();
+		
+		if(resultset.isEmpty()) throw new StudentNotFoundException("Student Data Not Found");
+		
+		return resultset;	
 	}
 	
 }

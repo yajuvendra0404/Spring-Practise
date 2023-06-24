@@ -6,8 +6,8 @@ public class ExceptionResponse {
 	private String message;
 	private long timeStamp;
 	
-	
-	
+	public ExceptionResponse() {
+	}
 	public ExceptionResponse(int status, String message, long timeStamp) {
 		this.status = status;
 		this.message = message;
@@ -38,5 +38,6 @@ public class ExceptionResponse {
 	public String toString() {
 		return "StudentErrorResponse [status=" + status + ", message=" + message + ", timeStamp=" + timeStamp + "]";
 	}
+
 	
 }

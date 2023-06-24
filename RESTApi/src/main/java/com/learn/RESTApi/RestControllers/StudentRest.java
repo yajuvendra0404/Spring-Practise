@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.learn.RESTApi.CustomExceptions.StudentNotFoundException;
+import com.learn.RESTApi.ExceptionResponse.ExceptionResponse;
 import com.learn.RESTApi.Models.Student;
 import com.learn.RESTApi.Models.Teacher;
 import com.learn.RESTApi.Services.StudentService;
@@ -37,7 +42,7 @@ public class StudentRest {
 	
 	/*Rest API to fetch one students by Id of that student*/
 	@GetMapping("/{id}")
-	public List<Student> getStudentById (@PathVariable int id) {
+	public List<Student> getStudentById (@PathVariable int id)  {
 		return this.studentService.getStudentByID(id);
 	}
 	
@@ -52,5 +57,7 @@ public class StudentRest {
 	public void addTeacher(@RequestBody Student student) {
 		this.studentService.addStudent(student.getEmail(), student.getFirstName(), student.getLastName(), student.getMarks());
 	}
+	
+	
 	
 }
