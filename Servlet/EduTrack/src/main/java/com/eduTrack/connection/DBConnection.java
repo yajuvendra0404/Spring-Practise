@@ -20,6 +20,7 @@ public final class DBConnection {
 		return "DBConnection [dbURL=" + dbURL + ", \n driver=" + driver + ", \n  schema=" + schema + ", \n  username=" + username
 				+ ", \n password=" + password + "]";
 	}
+	
 	private DBConnection (ServletContext context) throws Exception {
 			this.setDBCredentials(context);
 			Class.forName(this.driver);	
@@ -36,9 +37,8 @@ public final class DBConnection {
 						
 				);
 			}
-		
-
 	}
+	
 	private void setDBCredentials (ServletContext context) {
 
         String propertiesFilePath = context.getRealPath("/WEB-INF/config.properties");
@@ -59,10 +59,11 @@ public final class DBConnection {
         }
 
 	}
+	
 	public static Connection getDBConnection(ServletContext context) throws Exception  {
 		
 		if(DBConnection.con == null) {
-			DBConnection db = new DBConnection(context);
+			new DBConnection(context);
 		}
 		
 		return DBConnection.con;

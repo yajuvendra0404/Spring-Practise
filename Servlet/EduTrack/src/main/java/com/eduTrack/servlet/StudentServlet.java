@@ -1,88 +1,85 @@
 package com.eduTrack.servlet;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
 
-import com.eduTrack.connection.DBConnection;
-import com.google.gson.Gson;
+import com.eduTrack.appUtils.AppUtils;
+
+import com.eduTrack.service.StudentService;
+import com.eduTrack.appUtils.ResponseMessage;
+
+
 public class StudentServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-    private Connection con; 
+    private StudentService studentService = new StudentService(getServletContext());
     
     public StudentServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-
+    
+    
+    /* 
+     * Get List Of all students
+     * http://localhost:8080/EduTrack/student 
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
-			con = DBConnection.getDBConnection(getServletContext());
-			String queryString = "select * from student";
-			PreparedStatement ps =con.prepareStatement(queryString);
-			ResultSet resultObject = ps.executeQuery();
-			
-		    String json = new Gson().toJson(resultObject);
-		    response.setContentType("application/json");
-		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().write(json);
-		    
-
-		} catch (Exception e) {
+			AppUtils.sendResponseJson(response, 
+					this.studentService.getALLStudent()
+			);
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-
-		
-		
 	}
-
-
+ 
+	
+	
+    /* 
+     * Add new student
+     * http://localhost:8080/EduTrack/student 
+     * {
+     * 	email: String
+	 * 	name: String 
+     * 	city: String
+     * }
+     */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		String city = request.getParameter("city");
-		try {
-			con = DBConnection.getDBConnection(getServletContext());
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		if (con != null) {
-			
-	        String queryString = "insert into student (name, email, city) values (?,?,?)";
-			try {
+		ResponseMessage messageJson = this.studentService.addStudent(
+				request.getParameter("name"), 
+				request.getParameter("email"), 
+				request.getParameter("city")
+		);
 				
-			    PreparedStatement ps = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
-			    
-			    ps.setString(1, name);
-			    ps.setString(2, email);
-			    ps.setString(3, city);
-
-			    int result = ps.executeUpdate();
-
-				System.out.println("----- number of rows updated ----"+ result);
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}  else {
-			System.out.println("-- connnection issue -- ");
-		}
-
+		AppUtils.sendResponseJson(response, messageJson);
 	}
 
+	
+	/* 
+     * Delete student by giving email Id of that student
+     * http://localhost:8080/EduTrack/student 
+     * {
+     * 	email: String
+     * }
+     */
+	protected void doDelete (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ResponseMessage messageJson = this.studentService.deleteStudent(
+				request.getParameter("email")
+		);
+		AppUtils.sendResponseJson(response, messageJson );
+	}
+	
+	protected void doPut (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+	
+	
 }
