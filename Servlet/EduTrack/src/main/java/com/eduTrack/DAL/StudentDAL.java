@@ -16,19 +16,23 @@ public class StudentDAL {
     private Connection con; 
 	
 	public StudentDAL (ServletContext context) {
+		
 		try {
 			con = DBConnection.getDBConnection(context);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+		
 	}
 	
 	public ResultSet getALLStudent () {
 		ResultSet resultObject = null; 
 		try {
-			String queryString = "select * from students";
+			
+			String queryString = "SELECT * FROM students";
 			PreparedStatement ps =con.prepareStatement(queryString);
 			resultObject = ps.executeQuery();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,16 +40,15 @@ public class StudentDAL {
 	}
 	
 	public boolean addStudent (StudentModel student) {
+		
 			boolean result = false;
-	        String queryString = "insert into students (name, email, city) values (?,?,?)";
+	        String queryString = "INSERT INTO students (name, email, city) VALUES (?,?,?)";
 			try {
 				
 			    PreparedStatement ps = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
-			    
 			    ps.setString(1, student.getName());
 			    ps.setString(2, student.getEmail());
 			    ps.setString(3, student.getCity());
-
 			    if(ps.executeUpdate() > 0) result = true;
 			    else result = false;
 
@@ -59,14 +62,14 @@ public class StudentDAL {
 	}
 	
 	public boolean deleteStudent(String email) {
+		
 		boolean result = false;
-		String queryString = "delete from students where id = ?";
+		String queryString = "DELETE FROM students WHERE email = ?";
+		
 		try {
 			
-			ResultSet rs = this.getStudentByEmail(email);
 			PreparedStatement ps = con.prepareStatement(queryString);
-			ps.setInt(1, rs.getInt("id"));
-			
+			ps.setString(1, email);
 		    if(ps.executeUpdate() > 0) result = true;
 		    else result = false;
 			
@@ -75,14 +78,18 @@ public class StudentDAL {
 		}
 		return result;
 	}
-	
+
 	public ResultSet getStudentByEmail (String email) {
 		ResultSet resultSet = null;
-		String queryString = "select * from students where email = ?";
+		String queryString = "SELECT * FROM students WHERE email = ?";
+		
 		try {
+			
 			PreparedStatement ps = con.prepareStatement(queryString);
 			ps.setString(1, email);
 			resultSet = ps.executeQuery();
+			System.out.println(" --- next --- ");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

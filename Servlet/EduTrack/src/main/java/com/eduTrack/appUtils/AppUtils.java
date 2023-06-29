@@ -18,4 +18,9 @@ public class AppUtils {
 			e.printStackTrace();
 		}
 	}
+	
+	public static boolean checkAuthentication () {
+		
+		return false;
+	}
 }

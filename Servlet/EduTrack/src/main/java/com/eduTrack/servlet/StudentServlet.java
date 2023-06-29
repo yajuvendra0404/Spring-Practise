@@ -17,18 +17,21 @@ import com.eduTrack.appUtils.ResponseMessage;
 public class StudentServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-    private StudentService studentService = new StudentService(getServletContext());
+    private StudentService studentService ;
     
-    public StudentServlet() {
-        super();
-    }
+    public StudentServlet() { }
 
-    
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        studentService = new StudentService(getServletContext());
+    }
     
     /* 
      * Get List Of all students
      * http://localhost:8080/EduTrack/student 
      */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
@@ -52,6 +55,8 @@ public class StudentServlet extends HttpServlet {
      * 	city: String
      * }
      */
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ResponseMessage messageJson = this.studentService.addStudent(
 				request.getParameter("name"), 
@@ -71,6 +76,7 @@ public class StudentServlet extends HttpServlet {
      * }
      */
 	protected void doDelete (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		ResponseMessage messageJson = this.studentService.deleteStudent(
 				request.getParameter("email")
 		);

@@ -15,6 +15,7 @@ public final class DBConnection {
 	private String username;
 	private String password;
 	private static Connection con = null;
+	
 	@Override
 	public String toString() {
 		return "DBConnection [dbURL=" + dbURL + ", \n driver=" + driver + ", \n  schema=" + schema + ", \n  username=" + username
@@ -22,6 +23,7 @@ public final class DBConnection {
 	}
 	
 	private DBConnection (ServletContext context) throws Exception {
+		
 			this.setDBCredentials(context);
 			Class.forName(this.driver);	
 			DBConnection.con = DriverManager.getConnection(this.dbURL+this.schema,this.username,this.password);

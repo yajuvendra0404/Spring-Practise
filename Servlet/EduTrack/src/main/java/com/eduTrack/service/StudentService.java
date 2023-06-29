@@ -12,13 +12,15 @@ import java.sql.SQLException;
 import jakarta.servlet.ServletContext;
 
 public class StudentService {
-	private ServletContext context;
-    private StudentDAL studentDAL = new StudentDAL(context);
+    private StudentDAL studentDAL;
     private StudentModel studentModel;
     private ResponseMessage message; 
+    
+    
 	public StudentService (ServletContext context) {
-		this.context = context;
 		this.studentModel = new StudentModel();
+		this.studentDAL = new StudentDAL(context);
+
 	}
     
     
@@ -30,7 +32,7 @@ public class StudentService {
 			StudentModel row = new StudentModel(resultObject.getString("name"), resultObject.getString("email"), resultObject.getString("city") );
 			responseData.add(row);
 		}
-		return  null;
+		return responseData;
 		
 	}
 
@@ -42,12 +44,11 @@ public class StudentService {
 		this.studentModel.setCity(city);
 		
 		if(this.studentDAL.addStudent(this.studentModel)) {
-			this.message.setMessage("Student Added Successfully");
-			this.message.setStatus(200);
+			this.message = new ResponseMessage( 200, "Student Added Successfully");
 		} else {
-			this.message.setMessage("Error Occured while adding student");
-			this.message.setStatus(400);
+			this.message = new ResponseMessage( 200, "Error Occured while adding student");
 		}
+		
 		return this.message;
 	}
 	
@@ -55,16 +56,12 @@ public class StudentService {
 	public ResponseMessage deleteStudent(String email) {
 
 		if(this.studentDAL.deleteStudent(email)) {
-			this.message.setMessage("Student Added Successfully");
-			this.message.setStatus(200);
+			this.message = new ResponseMessage( 200, "student deleted");
 		} else {
-			this.message.setMessage("Error Occured while adding student");
-			this.message.setStatus(400);
+			this.message = new ResponseMessage( 200, "Error Occured while deleting student");
 		}
 		return message;
 		
 	}
-	
-	
 
 }

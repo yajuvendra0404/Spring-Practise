@@ -4,7 +4,6 @@
   <welcome-file-list>
     <welcome-file>edu-pages/index.html</welcome-file>
   </welcome-file-list>
-    
   <servlet>
     <description></description>
     <display-name>StudentServlet</display-name>
@@ -15,7 +14,6 @@
     <servlet-name>StudentServlet</servlet-name>
     <url-pattern>/student</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>TeacherServlet</display-name>
@@ -26,5 +24,24 @@
     <servlet-name>TeacherServlet</servlet-name>
     <url-pattern>/teacher</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <description></description>
+    <display-name>Login</display-name>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.eduTrack.servlet.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>com.eduTrack.servlet.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
 </web-app>
