@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.learn.RESTApi.CustomExceptions.StudentNotFoundException;
 import com.learn.RESTApi.DAOs.Student.IStudentDAO;
 import com.learn.RESTApi.Entities.StudentEntity;
 import com.learn.RESTApi.Models.Student;
@@ -55,9 +54,17 @@ public class StudentService {
 		return  studentModelData;
 	}
 	
-	public List<Student> getStudentByID(int id) {
-		studentDAO.getStudentById(id);
-		return  null;
+	public Student getStudentByID(int id) {
+		Student student = new Student();
+		Iterator<StudentEntity> itr = studentDAO.getStudentById(id).iterator();
+		StudentEntity rowData = itr.next();
+		
+		student.setEmail(rowData.getEmail());
+		student.setFirstName(rowData.getFirstName());
+		student.setLastName(rowData.getLastName());
+		student.setMarks(rowData.getMarks());
+		
+		return  student;
 //		return studentDAO.getStudentById(id);
 	}
 	

@@ -1,12 +1,12 @@
-package com.learn.RESTApi.genericExceptionHandler;
+package com.learn.RESTApi.ExceptionHandlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.learn.RESTApi.CustomExceptions.StudentNotFoundException;
-import com.learn.RESTApi.ExceptionResponse.ExceptionResponse;
+import com.learn.RESTApi.CustomExceptions.ExceptionManager;
+import com.learn.RESTApi.Models.ExceptionResponse;
 
 
 /*
@@ -22,13 +22,13 @@ public class GenericExceptionHandler {
 	//Add an exception handler using @ExceptionHandleer
 	
 	@ExceptionHandler
-	public ResponseEntity<ExceptionResponse> handleException(StudentNotFoundException e) {
+	public ResponseEntity<ExceptionResponse> handleException(ExceptionManager e) {
 		
 		ExceptionResponse exception = new ExceptionResponse();
 		//create a studentErrorResponse
 		
 		
-		exception.setStatus(HttpStatus.NOT_FOUND.value());
+		exception.setStatus(e.getStatusCode());
 		exception.setMessage(e.getMessage());
 		exception.setTimeStamp(System.currentTimeMillis());
 		
@@ -50,7 +50,7 @@ public class GenericExceptionHandler {
 	}
 	
 	
-	// this is for handling any type of generic exception.
+	// This is for handling any type of generic exception which are not handle by the programmer.
 	@ExceptionHandler
 	public ResponseEntity<ExceptionResponse> handleException(Exception e) {
 		

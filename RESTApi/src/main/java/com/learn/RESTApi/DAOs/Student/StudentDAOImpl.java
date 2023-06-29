@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.learn.RESTApi.CustomExceptions.StudentNotFoundException;
+import com.learn.RESTApi.CustomExceptions.ExceptionManager;
 import com.learn.RESTApi.Entities.StudentEntity;
 import com.learn.RESTApi.Models.Student;
 
@@ -45,7 +45,10 @@ public class StudentDAOImpl implements IStudentDAO {
 		query.setParameter("param", id);
 		List<StudentEntity> resultset = query.getResultList();
 		
-		if(resultset.isEmpty()) throw new StudentNotFoundException("Student Data Not Found");
+		/*
+		 * here the exception is thrown with a message and status code 
+		 * which will be handled by the @ControllerAdvice ( A Generic Exception Handler)*/
+		if(resultset.isEmpty()) throw new ExceptionManager("Student Not Found.",404);
 		
 		return resultset;	
 	}

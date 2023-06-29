@@ -1,4 +1,4 @@
-package com.learn.RESTApi.ExceptionResponse;
+package com.learn.RESTApi.Models;
 
 public class ExceptionResponse {
 
