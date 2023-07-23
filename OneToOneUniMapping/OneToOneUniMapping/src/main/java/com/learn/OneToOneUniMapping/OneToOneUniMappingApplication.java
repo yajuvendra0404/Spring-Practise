@@ -15,7 +15,7 @@ public class OneToOneUniMappingApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner (String srgs[]) {
 		return runner -> {
-			System.out.println("hrllow");
+			System.out.println("hellow");
 		};
 	}
 }
