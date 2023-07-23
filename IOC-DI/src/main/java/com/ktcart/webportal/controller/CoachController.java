@@ -16,7 +16,7 @@ public class CoachController {
 	
 	/* these values are defined in application.properties file 
 	 * path - "/src/main/resources/application.properties" */
-	
+	/* you can also use env variables to get the value from application file*/
 	@Value("${coach.name}")
 	private String coachName;
 	
