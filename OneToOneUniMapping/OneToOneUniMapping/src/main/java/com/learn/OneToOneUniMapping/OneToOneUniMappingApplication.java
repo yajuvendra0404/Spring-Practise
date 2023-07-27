@@ -37,6 +37,7 @@ public class OneToOneUniMappingApplication {
 		 * first the data for "instructordetails" will be saved and then
 		 * data for "instructor" will be saved
 		*/
+		
 		Instructor instructor = new Instructor("tim","bits","tim@bits.com");
 
 		InstructorDetails instructordetails = new InstructorDetails("www.youtube.com", "dance");
