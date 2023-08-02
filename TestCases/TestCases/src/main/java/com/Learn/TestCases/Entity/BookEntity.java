@@ -1,6 +1,6 @@
 package com.Learn.TestCases.Entity;
 
-import org.hibernate.annotations.GeneratorType;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,8 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="book")
-
+@Table(name="books")
 @Getter
 @Setter
 @ToString
@@ -45,4 +44,5 @@ public class BookEntity {
 	
 	@Column(name="summary")
 	private String summary;
+
 }

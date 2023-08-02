@@ -1,6 +1,8 @@
 package testing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
 public class JUnitTest {
@@ -12,6 +14,7 @@ public class JUnitTest {
 		String message = "springsadkjsdfsimple";
 		assertEquals(message,"nooooo simple12");
 		System.out.println("---- test demo is ending ----");
+		fail("fialed the test.");
 	}
 //	public static void main(String a[]) {
 //		JUnitTest jut = new JUnitTest();
