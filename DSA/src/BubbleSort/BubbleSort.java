@@ -18,7 +18,9 @@ public class BubbleSort {
 		boolean isSwapped;
 		for(int i = 0; i < array.length-1; i++) { // Time complexity O(n) - order of "n"
 			// This for loop is for passes which is (array.length-1)
+			
 			isSwapped = false;
+			
 			for( int j=0; j< array.length-1-i;j++) { // Time complexity O(n2) - order of "n" square
 				// This for loop is for comparisons.
 				
