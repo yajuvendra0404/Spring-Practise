@@ -8,34 +8,32 @@ public class QuickSort {
 
 		int pivot = array[low];
 		int pivotIndex = low;
+		
 		while (low < high) {
 			
 			do {
-//				System.out.println("low ++");
+
 				low++;
-			} while (QuickSort.array[low] <= pivot);
+			} while (low < array.length && QuickSort.array[low] <= pivot);
 			
 			do {
-//				System.out.println("high --");
+
 				high--;
 			} while (QuickSort.array[high] > pivot);
 			
 			
 			if(low < high) {
-//				System.out.println("partition swapping the numbers --");
+
 				int temp = QuickSort.array[low];
 				QuickSort.array[low] = QuickSort.array[high];
 				QuickSort.array[high] = temp;
 				
-				
-				for(int i = 0; i< array.length; i++) {
-					System.out.println(array[i]);
-				}
-				System.out.println("--- go --- ");
 			}
 
+
 		}
-		
+
+
 		QuickSort.array[pivotIndex] = QuickSort.array[high];
 		QuickSort.array[high] = pivot;
 
@@ -47,8 +45,9 @@ public class QuickSort {
 	
 	private static void sort(int low, int high) {
 		
-		if(low < high) {
-			int sortedElementLocation = QuickSort.partition(low, high);
+		if(low < high) {  /* if low is equal to high that means there are only one element*/
+			int sortedElementLocation = QuickSort.partition(low, high); 
+			
 			QuickSort.sort(low, sortedElementLocation);
 			QuickSort.sort(sortedElementLocation+1, high);
 		} 
@@ -56,7 +55,12 @@ public class QuickSort {
 	} 
 	
 	public static void main (String a[] ) {
+		
 		QuickSort.sort(0,array.length);
+		
+		for(int i = 0; i< array.length; i++) {
+			System.out.println(array[i]);
+		}
 	}
 	
 }
