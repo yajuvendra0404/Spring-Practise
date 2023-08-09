@@ -22,8 +22,6 @@ public class HeapInsertion {
 		HeapInsertion.array[i] = num;
 		
 		
-
-		
 		while( i > 0) {
 			
 			int parent = (i-1)/2;

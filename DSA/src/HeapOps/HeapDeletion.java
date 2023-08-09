@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class HeapDeletion {
 	/*
+	 * if you are using '0' as first index
 	 * Root element is a '0' zero
 	 * Left child of i-th node is at (2*i + 1)th index.
 	 * Right child of i-th node is at (2*i + 2)th index.
@@ -13,16 +14,13 @@ public class HeapDeletion {
 	
 	public static void heapDeletion () {
 		
-		int arrLength = HeapDeletion.array.length;
-		
-		
+		int arrLength = HeapDeletion.array.length;		
 		/*
 		 * Swaps the first element with the last element in the Array.
 		 */
 		int temp =  HeapDeletion.array[0];
 			 HeapDeletion.array[0] =  HeapDeletion.array[arrLength - 1];
 			 HeapDeletion.array[arrLength - 1] = temp;
-			 
 			/*
 			 * Removes the Last element from the array.
 			 */ 
@@ -56,7 +54,6 @@ public class HeapDeletion {
 			}
 			
 		} 
-		
 		
 		for(int j=0; j< arrLength; j++) {
 			System.out.print("-"+ HeapDeletion.array[j]);
