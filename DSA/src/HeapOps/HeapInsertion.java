@@ -20,8 +20,6 @@ public class HeapInsertion {
 	
 		int i = HeapInsertion.array.length-1; // increase the length of Array.
 		HeapInsertion.array[i] = num;
-		
-		
 		while( i > 0) {
 			
 			int parent = (i-1)/2;
@@ -39,7 +37,6 @@ public class HeapInsertion {
 			}
 		}
 			
-
 		System.out.println("\n\n\n");
 		
 		for (int x = 0 ; x < HeapInsertion.array.length ; x++) {
